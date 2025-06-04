@@ -1,0 +1,6 @@
+seamless-communication>=0.3.0
+ffmpeg-python==0.2.0
+loguru==0.7.2
+pysrt==1.2.2
+coqui-tts==0.22.0
+tqdm==4.66.2
