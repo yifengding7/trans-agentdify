@@ -1,1 +1,27 @@
- 
+# Video Subtitle Agent - .gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+*.log
+
+# Virtual environments
+.venv/
+.venv-*/
+venv/
+env/
+
+# OS files
+.DS_Store
+*.swp
+
+# Large files
+*.mp4
+*.wav
+*.mp3
+
+# Temp dirs
+temp_*/
+tmp/
