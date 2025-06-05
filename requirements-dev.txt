@@ -1,0 +1,27 @@
+# 核心框架
+langgraph>=0.0.60
+langchain>=0.1.0
+langchain-core>=0.1.0
+
+# 基础工具
+loguru>=0.7.0
+pydantic>=2.0.0
+click>=8.0.0
+rich>=13.0.0
+
+# 开发工具
+pytest>=7.0.0
+pytest-asyncio>=0.21.0
+black>=23.0.0
+isort>=5.12.0
+flake8>=6.0.0
+
+# 文件处理
+ffmpeg-python>=0.2.0
+pysrt>=1.1.0
+
+# 可选的AI依赖（注释掉以便快速安装）
+# seamless-communication>=0.3.0
+# coqui-tts>=0.22.0
+# torch
+# transformers 

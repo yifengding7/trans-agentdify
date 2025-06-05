@@ -1,0 +1,86 @@
+version: '3.8'
+
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Use Python 3.11 for better performance and compatibility
+        PYTHON_VERSION: "3.11"
+    
+    volumes:
+      # Mount the workspace
+      - ..:/workspace:cached
+      
+      # Mount cache directories for better performance
+      - pip-cache:/root/.cache/pip
+      - huggingface-cache:/root/.cache/huggingface
+      - torch-cache:/root/.cache/torch
+      
+      # Mount model cache for AI models
+      - model-cache:/root/.local/share/tts
+      - seamless-cache:/root/.cache/seamless_communication
+      
+      # Mount for temporary files
+      - temp-data:/tmp/video_processing
+    
+    working_dir: /workspace
+    
+    # Keep container running
+    command: sleep infinity
+    
+    environment:
+      # Python environment
+      - PYTHONPATH=/workspace
+      - PYTHONUNBUFFERED=1
+      - PIP_CACHE_DIR=/root/.cache/pip
+      
+      # AI model settings
+      - TRANSFORMERS_CACHE=/root/.cache/huggingface
+      - TORCH_HOME=/root/.cache/torch
+      - TTS_CACHE_DIR=/root/.local/share/tts
+      - SEAMLESS_CACHE_DIR=/root/.cache/seamless_communication
+      
+      # Hardware acceleration (for Apple Silicon support in OrbStack)
+      - PYTORCH_ENABLE_MPS_FALLBACK=1
+      - CUDA_VISIBLE_DEVICES=""
+      
+      # FFmpeg settings
+      - FFMPEG_BINARY=/usr/bin/ffmpeg
+      
+      # Development settings  
+      - DEVELOPMENT=1
+      - LOG_LEVEL=DEBUG
+    
+    # Expose ports for development servers
+    ports:
+      - "8000:8000"   # FastAPI/Flask development server
+      - "8888:8888"   # Jupyter Lab
+      - "5000:5000"   # Additional development server
+    
+    # Add capabilities for better hardware access
+    cap_add:
+      - SYS_PTRACE
+    
+    security_opt:
+      - seccomp:unconfined
+    
+    # Shared memory for AI model loading
+    shm_size: '2gb'
+    
+    # Resource limits (adjust based on your machine)
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+        reservations:
+          memory: 4G
+
+volumes:
+  pip-cache:
+  huggingface-cache:
+  torch-cache:
+  model-cache:
+  seamless-cache:
+  temp-data: 

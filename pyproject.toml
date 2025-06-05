@@ -1,0 +1,76 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "video-subtitle-agent"
+version = "0.1.0"
+description = "AI-powered video subtitle generation and processing system"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "Your Name", email = "your.email@example.com"},
+]
+keywords = ["video", "subtitle", "ai", "langgraph", "speech-to-text"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "langgraph>=0.0.60",
+    "langchain>=0.1.0",
+    "ffmpeg-python>=0.2.0",
+    "loguru>=0.7.0",
+    "pysrt>=1.1.0",
+    "tqdm>=4.66.0",
+    "pydantic>=2.0.0",
+    "click>=8.0.0",
+    "rich>=13.0.0",
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "gradio>=4.0.0",
+    # AI dependencies commented out for Python 3.13 compatibility
+    # "seamless-communication>=0.3.0",
+    # "coqui-tts>=0.22.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
+    "pre-commit>=3.0.0",
+    "pytest-cov>=4.0.0",
+]
+
+[project.scripts]
+video-subtitle = "video_subtitle_agent.cli:main"
+
+[tool.black]
+line-length = 88
+target-version = ['py310']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --cov=video_subtitle_agent --cov-report=term-missing" 
